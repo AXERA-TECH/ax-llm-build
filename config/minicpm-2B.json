@@ -1,0 +1,19 @@
+{
+    "model_name": "openbmb/MiniCPM-2B-sft-bf16",
+    "model_type": "minicpm",
+    "num_hidden_layers": 40,
+    "num_attention_heads": 36,
+    "num_key_value_heads": 36,
+    "hidden_size": 2304,
+    "intermediate_size": 5760,
+    "vocab_size": 122753,
+  
+    "rope_theta_base": 10000.0,
+    "max_position_embedings": 4096,
+    "rope_partial_factor": 1.0,
+  
+    "norm_eps": 1e-5,
+    "norm_type": "rms_norm",
+    "hidden_act": "silu"
+}
+  

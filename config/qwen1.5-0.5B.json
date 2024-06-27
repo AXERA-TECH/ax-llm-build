@@ -1,0 +1,19 @@
+{
+    "model_name": "Qwen/Qwen1.5-0.5B-Chat",
+    "model_type": "qwen",
+    "num_hidden_layers": 24,
+    "num_attention_heads": 16,
+    "num_key_value_heads": 16,
+    "hidden_size": 1024,
+    "intermediate_size": 2816,
+    "vocab_size": 151936,
+  
+    "rope_theta_base": 1000000.0,
+    "max_position_embedings": 32768,
+    "rope_partial_factor": 1.0,
+  
+    "norm_eps": 1e-6,
+    "norm_type": "rms_norm",
+    "hidden_act": "silu"
+  }
+  
