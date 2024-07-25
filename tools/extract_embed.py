@@ -21,7 +21,7 @@ if __name__ == '__main__':
     if bin_file.exists():
         torch_bin = torch.load(bin_file.as_posix(), map_location="cpu", mmap=True)
         embeds_pt = torch_bin["model.embed_tokens.weight"]
-        embeds_np = embeds_pt.to(torch.float32).numpy
+        embeds_np = embeds_pt.to(torch.float32).numpy()
         np.save(output_path / f"model.embed_tokens.weight.npy", embeds_np)
         print(f"find model.embed_tokens.weight in {bin_file.as_posix()}")
         print(f"save model.embed_tokens.weight.npy in {output_path}")
