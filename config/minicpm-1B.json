@@ -1,5 +1,5 @@
 {
-    "model_name": "openbmb/MiniCPM-2B-sft-bf16",
+    "model_name": "openbmb/MiniCPM-1B-sft-bf16",
     "model_type": "minicpm",
     "num_hidden_layers": 52,
     "num_attention_heads": 24,
