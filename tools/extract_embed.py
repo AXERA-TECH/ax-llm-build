@@ -20,23 +20,30 @@ if __name__ == '__main__':
     bin_file = input_path / "pytorch_model.bin"
     if bin_file.exists():
         torch_bin = torch.load(bin_file.as_posix(), map_location="cpu", mmap=True)
-        embeds_pt = torch_bin["model.embed_tokens.weight"]
-        embeds_np = embeds_pt.to(torch.float32).numpy()
+        if "model.embed_tokens.weight" in torch_bin:
+            print(f"find model.embed_tokens.weight in pytorch_model.bin")
+            key = "model.embed_tokens.weight"
+        elif "llm.model.embed_tokens.weight" in torch_bin:
+            print(f"find llm.model.embed_tokens.weight in pytorch_model.bin")
+            key = "llm.model.embed_tokens.weight"
+        elif "language_model.model.embed_tokens.weight" in torch_bin:
+            print(f"find anguage_model.model.embed_tokens.weight in pytorch_model.bin")
+            key = "language_model.model.embed_tokens.weight"
+        embeds_pt = torch_bin[key]
+        embeds_np = embeds_pt.detach().to(torch.float32).numpy()
         np.save(output_path / f"model.embed_tokens.weight.npy", embeds_np)
-        print(f"find model.embed_tokens.weight in {bin_file.as_posix()}")
-        print(f"save model.embed_tokens.weight.npy in {output_path}")
     else:
         sf_files = input_path.glob("*.safetensors")
         for file in sf_files:
             find = False
             with safetensors.safe_open(file, "pt", device="cpu") as f:
                 for k in f.keys():
-                    if k == "model.embed_tokens.weight":
+                    if k == "model.embed_tokens.weight" or k == "llm.model.embed_tokens.weight" or k == "language_model.model.embed_tokens.weight":
                         #
-                        print(f"find model.embed_tokens.weight in {file.as_posix()}")
+                        print(f"find {k} in {file.as_posix()}")
                         res = f.get_tensor(k).to(torch.float32).numpy()
                         np.save(output_path / f"model.embed_tokens.weight.npy", res)
+                        find = True
                         break
             if find:
                 break
-        print(f"save model.embed_tokens.weight.npy in {output_path}")
